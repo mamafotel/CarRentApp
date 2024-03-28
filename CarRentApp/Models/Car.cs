@@ -7,5 +7,6 @@
         public string Brand { get; set; }
         public string Model { get; set; }
         public double Dailyprice { get; set; }
+        public ICollection<Sale> Sales { get; set; }
     }
 }
