@@ -48,13 +48,5 @@ namespace CarRentAPI.Controllers
             if (filtered_cars.Count > 0) return filtered_cars;
             else throw new Exception("No car found within the category");
         }
-
-        
-        [HttpPost]
-        public IActionResult AddCar([FromBody] Car car)
-        {
-            cars.Add(car);
-            return Ok();
-        }
     }
 }
