@@ -7,6 +7,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSingleton<CarController>();
+builder.Services.AddSingleton<CategoryController>();
+
 
 var app = builder.Build();
 

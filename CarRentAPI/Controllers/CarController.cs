@@ -28,25 +28,9 @@ namespace CarRentAPI.Controllers
         [HttpGet]
         public IActionResult listCars()
         {
-            var json = JsonConvert.SerializeObject(cars); // Autók listájának JSON formátumba szerializálása
-            Console.WriteLine(json); // Logoljuk a JSON adatot
+            var json = JsonConvert.SerializeObject(cars); // Autók listájának JSON formátumba szérializálása
             return Ok(json);
         }
 
-        
-        [HttpGet("{categoryid}")]
-        public ActionResult<List<Car>> filteredList(int categoryid)
-        {
-            List<Car> filtered_cars = new List<Car>();
-            foreach (var car in cars)
-            {
-                if(car.CategoryId == categoryid)
-                {
-                    filtered_cars.Add(car);
-                }
-            }
-            if (filtered_cars.Count > 0) return filtered_cars;
-            else throw new Exception("No car found within the category");
-        }
     }
 }

@@ -29,6 +29,7 @@ namespace CarRentClientApp
             _client = new HttpClient();
         }
 
+        //Bejelentkezés
         private async void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             bool loggedIN = false;
@@ -65,11 +66,37 @@ namespace CarRentClientApp
                 }
         }
 
+        //Autók kilistázása
         private async void ListCars()
         {
             try
             {
                 HttpResponseMessage response = await _client.GetAsync("https://localhost:7173/api/Car-listCars");
+                response.EnsureSuccessStatusCode();
+
+                string responseBody = await response.Content.ReadAsStringAsync();
+                List<Car> cars = JsonSerializer.Deserialize<List<Car>>(responseBody);
+
+                carListBox.ItemsSource = cars;
+            }
+            catch (HttpRequestException ex)
+            {
+                MessageBox.Show($"HTTP error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        //Kategóriák szerinti listázás
+        private async void CategoryList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            ComboBoxItem selectedItem = (ComboBoxItem)CategoryList.SelectedItem;
+            string selectedCategory = selectedItem.Content.ToString();
+
+            selectedCategory.Replace(" ", "%20");   //A routenak megfelelő legyen a string
+            //MessageBox.Show(selectedCategory);
+            try
+            {
+                HttpResponseMessage response = await _client.GetAsync($"https://localhost:7173/api/Category-filteredList/{selectedCategory}");
                 response.EnsureSuccessStatusCode();
 
                 string responseBody = await response.Content.ReadAsStringAsync();
