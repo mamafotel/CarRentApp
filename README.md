@@ -10,9 +10,14 @@ Hátra van még:
 
 <OsztályNév>Controller.cs-be kerül a program fő logikája, az alapot a server-cliens kommunikációt mellőzve is meglehet csinálni, cliens-be többnyire csak a fogadás van , egy két kivétellel (pl.: Login)
 Cliens kód a MainWIndow.xaml.cs-ben található, fő elemei:
-  HttpResponseMessage response = await _client.GetAsync("https://localhost:7173/api/Car-listCars"); // _client.(Get vagy Post a szerveroldali metódustól függöen)Async(...);
+  HttpResponseMessage response = await _client.GetAsync("https://localhost:7173/api/Car-listCars");   //_client.(Get vagy Post a szerveroldali metódustól függöen)Async(...);
+                                                        "https://localhost:7173/api/[Controller]-[Action]"  //A route definiálása, [Controller]: Melyik Controller osztály
+                                                                                                            //pl.: CarController -> Car, [Action]: metódus név
+                                                                                                            //pl.: listCars() -> listCars
   response.EnsureSuccessStatusCode();    //csatlakozás ellenörzés
       
   string responseBody = await response.Content.ReadAsStringAsync();
   List<Car> cars = JsonSerializer.Deserialize<List<Car>>(responseBody);   //JSON fájl-t alakitja vissza C#-os adattá
   függvények láthatósága után "async" kulcsszó
+
+Adatok jelenleg beleégetve vannak, majd második beadandóra az adatbázis miatt a Model-ben lévő osztályok és esélyesen a Controlleres metódusok sokat változhatnak
