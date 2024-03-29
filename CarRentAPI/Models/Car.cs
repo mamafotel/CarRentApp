@@ -8,7 +8,7 @@ namespace CarRentAPI.Models
         public string Brand { get; set; }
         public string Model { get; set; }
         public int CategoryId { get; set; }
-        public IEnumerable<Sale> sales { get; set; }
-        public IEnumerable<Rental> rentals { get; set; }
+        public List<Sale> sales { get; set; }
+        public List<Rental> rentals { get; set; }
     }
 }

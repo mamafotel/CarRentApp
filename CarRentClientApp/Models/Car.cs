@@ -12,5 +12,7 @@ namespace CarRentClientApp.Models
         public string Brand { get; set; }
         public string Model { get; set; }
         public int CategoryId { get; set; }
+        public List<Sale> sales { get; set; }
+        public List<Rental> rentals { get; set; }
     }
 }

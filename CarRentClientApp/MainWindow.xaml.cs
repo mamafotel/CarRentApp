@@ -29,7 +29,43 @@ namespace CarRentClientApp
             _client = new HttpClient();
         }
 
-        private async void List_Click(object sender, RoutedEventArgs e)
+        private async void LoginButton_Click(object sender, RoutedEventArgs e)
+        {
+            bool loggedIN = false;
+            string username = UsernameTextBox.Text;
+            string password = PasswordBox.Password;
+
+                try
+                    {
+                    //Form adatípusba rakás, hogy a POST működjön
+                    var formData = new Dictionary<string, string>
+                    {
+                        { "_username", username },
+                        { "_password", password }
+                    };
+
+                    //API csatlakozás
+                    HttpResponseMessage response = await _client.PostAsync("https://localhost:7173/api/User-Login", new FormUrlEncodedContent(formData));
+                    response.EnsureSuccessStatusCode();
+                    Console.Write("Response: ", response.Content);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        ListCars();
+                        LoginGrid.Visibility = Visibility.Collapsed;
+                        loggedIN = true;
+                        MainGrid.Visibility = Visibility.Visible;
+                    }
+                    
+                }
+                catch (Exception ex)
+                {
+                    ErrorWindow loginErrorWindow = new ErrorWindow();
+                    loginErrorWindow.ShowDialog();
+                }
+        }
+
+        private async void ListCars()
         {
             try
             {
