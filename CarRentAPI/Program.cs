@@ -5,6 +5,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+var port = Environment.GetEnvironmentVariable("PORT") ?? "7173";
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -35,4 +37,4 @@ app.UsePathBase("/");
 // Set the path base for HTTPS
 app.UsePathBase("/secure");
 
-app.Run();
+app.Run($"https://localhost:{port}");
