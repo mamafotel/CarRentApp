@@ -48,8 +48,7 @@ namespace CarRentClientApp
                     //API csatlakozás
                     HttpResponseMessage response = await _client.PostAsync("https://localhost:7173/api/User-Login", new FormUrlEncodedContent(formData));
                     response.EnsureSuccessStatusCode();
-                    Console.Write("Response: ", response.Content);
-
+                    
                     if (response.IsSuccessStatusCode)
                     {
                         ListCars();
@@ -61,8 +60,8 @@ namespace CarRentClientApp
                 }
                 catch (Exception ex)
                 {
-                    ErrorWindow loginErrorWindow = new ErrorWindow();
-                    loginErrorWindow.ShowDialog();
+                    MessageBox.Show("Rossz felhasználó név vagy jelszó!");
+                    //MessageBox.Show(ex.ToString());
                 }
         }
 
